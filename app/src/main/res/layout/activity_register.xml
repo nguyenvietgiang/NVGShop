@@ -7,7 +7,7 @@
     tools:context=".RegisterActivity">
 
     <TextView
-        android:id="@+id/tv_signIn"
+        android:id="@+id/tv_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edt_userName"
-        android:layout_below="@+id/tv_signIn"
+        android:layout_below="@+id/tv_signUp"
         android:background="#30ffffff"
         android:hint="Tên tài khoản"
         android:textColorHint="@color/white"
@@ -77,12 +77,11 @@
         android:text="Đăng Ký" />
 
     <TextView
+        android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_forgotPass"
         android:layout_below="@id/btn_signIn"
-        android:text="Đăng Nhập Ngay"
-        android:textColor="@color/white"
         android:layout_centerHorizontal="true"
-        />
+        android:text="Đăng Nhập Ngay"
+        android:textColor="@color/white" />
 </RelativeLayout>
