@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/nav_greeting"
-        android:title="Xin chào: username" />
+        android:title="Xin chào: username"
+        android:icon="@drawable/ic_user"/>
     <!-- Các MenuItem khác -->
     <item
-        android:id="@+id/nav_item1"
-        android:title="Sản Phẩm" />
+        android:id="@+id/nav_home"
+        android:title="Trang chủ"
+        android:icon="@drawable/ic_home"/>
+
     <item
-        android:id="@+id/nav_item2"
-        android:title="Giỏ Hàng" />
+        android:id="@+id/nav_product"
+        android:title="Sản Phẩm"
+    android:icon="@drawable/ic_product"/>
     <item
-        android:id="@+id/nav_item3"
-        android:title="Đăng Xuất" />
+        android:id="@+id/nav_card"
+        android:title="Giỏ Hàng"
+        android:icon="@drawable/ic_cart"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Đăng Xuất"
+        android:icon="@drawable/ic_logout"/>
+    <item
+        android:id="@+id/nav_contact"
+        android:title="Gửi phản hồi"
+        android:icon="@drawable/ic_contact"/>
 </menu>

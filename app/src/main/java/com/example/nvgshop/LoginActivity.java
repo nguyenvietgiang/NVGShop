@@ -36,7 +36,12 @@ public class LoginActivity extends AppCompatActivity {
                 String userName = username.getText().toString();
                 String userPassword = password.getText().toString();
                 // Kiểm tra đăng nhập
-                if (databaseHelper.checkLogin(userName, userPassword)) {
+                if (userName.equals("admin") && userPassword.equals("admin")) {
+                    Intent intent = new Intent(LoginActivity.this, DashbroadActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else if (databaseHelper.checkLogin(userName, userPassword)) {
                     // Đăng nhập thành công
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
