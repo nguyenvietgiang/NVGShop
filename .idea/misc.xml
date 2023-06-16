@@ -4,11 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Mobie/NVG App/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.20885416666666667" />
+        <entry key="..\:/Mobie/NVG App/app/src/main/res/drawable/ic_product.xml" value="0.225" />
         <entry key="..\:/Mobie/NVG App/app/src/main/res/layout/activity_dashbroad.xml" value="0.21557971014492755" />
         <entry key="..\:/Mobie/NVG App/app/src/main/res/layout/activity_login.xml" value="0.21557971014492755" />
         <entry key="..\:/Mobie/NVG App/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Mobie/NVG App/app/src/main/res/layout/activity_main_drawer.xml" value="0.21195652173913043" />
+        <entry key="..\:/Mobie/NVG App/app/src/main/res/layout/activity_product_manager.xml" value="0.16770833333333332" />
         <entry key="..\:/Mobie/NVG App/app/src/main/res/layout/activity_register.xml" value="0.21557971014492755" />
+        <entry key="..\:/Mobie/NVG App/app/src/main/res/layout/item_product.xml" value="0.19202898550724637" />
+        <entry key="..\:/Mobie/NVG App/app/src/main/res/menu/activity_dasbroad_drawer.xml" value="0.16770833333333332" />
         <entry key="..\:/Mobie/NVG App/app/src/main/res/menu/activity_main_drawer.xml" value="0.23854166666666668" />
       </map>
     </option>

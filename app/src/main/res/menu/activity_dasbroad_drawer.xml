@@ -3,25 +3,20 @@
 
     <item
         android:id="@+id/nav_greeting"
-        android:title="Xin chào: username"
+        android:title="Xin chào: Admin"
         android:icon="@drawable/ic_user"/>
     <!-- Các MenuItem khác -->
     <item
-        android:id="@+id/nav_home"
-        android:title="Trang chủ"
-        android:icon="@drawable/ic_home"/>
-
-    <item
         android:id="@+id/nav_product"
-        android:title="Sản Phẩm"
-    android:icon="@drawable/ic_product"/>
+        android:title="Quản lý sản phẩm"
+        android:icon="@drawable/ic_product"/>
     <item
         android:id="@+id/nav_card"
-        android:title="Xem Giỏ Hàng"
+        android:title="Quản lý đơn hàng"
         android:icon="@drawable/ic_cart"/>
     <item
         android:id="@+id/nav_contact"
-        android:title="Gửi phản hồi"
+        android:title="Xem phản hồi"
         android:icon="@drawable/ic_contact"/>
     <item
         android:id="@+id/nav_logout"
