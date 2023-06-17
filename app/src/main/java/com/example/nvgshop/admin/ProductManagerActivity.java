@@ -12,9 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.nvgshop.DatabaseHelper;
+import com.example.nvgshop.Data.DatabaseHelper;
 import com.example.nvgshop.models.Product;
 import com.example.nvgshop.R;
+import com.example.nvgshop.portal.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ProductManagerActivity extends AppCompatActivity {
     private List<Product> productList;
     private ProductAdapter productAdapter;
     private DatabaseHelper databaseHelper;
+    private BaseAdminActivity baseActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,9 @@ public class ProductManagerActivity extends AppCompatActivity {
         productAdapter = new ProductAdapter(productList);
         recyclerViewProductList.setAdapter(productAdapter);
         recyclerViewProductList.setLayoutManager(new LinearLayoutManager(this));
+
+        baseActivity = new BaseAdminActivity(this); // Truyền vào tham số Activity hiện tại
+        baseActivity.setupNavigationView();
 
         databaseHelper = new DatabaseHelper(this);
         // Lấy danh sách sản phẩm từ database và cập nhật RecyclerView

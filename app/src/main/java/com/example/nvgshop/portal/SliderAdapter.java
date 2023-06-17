@@ -1,9 +1,10 @@
-package com.example.nvgshop;
+package com.example.nvgshop.portal;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.nvgshop.R;
 import com.example.nvgshop.models.SliderItem;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 

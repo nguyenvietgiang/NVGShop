@@ -1,4 +1,4 @@
-package com.example.nvgshop;
+package com.example.nvgshop.portal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nvgshop.Data.DatabaseHelper;
+import com.example.nvgshop.R;
 import com.example.nvgshop.admin.DashbroadActivity;
 
 public class LoginActivity extends AppCompatActivity {

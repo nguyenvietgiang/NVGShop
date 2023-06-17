@@ -1,4 +1,4 @@
-package com.example.nvgshop;
+package com.example.nvgshop.portal;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,13 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.nvgshop.admin.ProductManagerActivity;
+import com.example.nvgshop.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 

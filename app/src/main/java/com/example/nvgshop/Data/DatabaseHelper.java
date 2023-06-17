@@ -1,4 +1,4 @@
-package com.example.nvgshop;
+package com.example.nvgshop.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.nvgshop.models.Account;
 import com.example.nvgshop.models.Product;
 
 import java.util.ArrayList;
@@ -73,6 +74,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public List<Account> getAllAccount() {
+
+        List<Account> accountsList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ACCOUNT, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int accountId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME));
+                String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
+                String pass = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD));
+
+                Account accounts = new Account(accountId , name, email, pass);
+                accountsList.add(accounts);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return accountsList;
+    }
+
+   // kiểm tra tài khoản trong csdl
     public boolean checkLogin(String userName, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_USERNAME};
@@ -83,6 +110,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return count > 0;
+    }
+    //kiểm tra validate tên và email
+    public boolean checkAccountExists(String userName, String userEmail) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID};
+        String selection = COLUMN_USERNAME + " = ? OR " + COLUMN_EMAIL + " = ?";
+        String[] selectionArgs = {userName, userEmail};
+        Cursor cursor = db.query(TABLE_ACCOUNT, columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        db.close();
+        return count > 0;
+    }
+
+    // lấy thông tin email
+    public String getAccountEmail(String userName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_EMAIL};
+        String selection = COLUMN_USERNAME + " = ?";
+        String[] selectionArgs = {userName};
+        Cursor cursor = db.query(TABLE_ACCOUNT, columns, selection, selectionArgs, null, null, null);
+
+        String email = "";
+        if (cursor.moveToFirst()) {
+            email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
+        }
+
+        cursor.close();
+        db.close();
+        return email;
     }
 
     public void addProduct(String name, String description, double price) {

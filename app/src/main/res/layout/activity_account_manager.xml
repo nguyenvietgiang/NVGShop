@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".portal.MainActivity">
+    tools:context=".admin.AccountManagerActivity">
 
     <!-- Content layout -->
     <androidx.core.widget.NestedScrollView
@@ -26,11 +26,34 @@
                 android:elevation="2dp"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/imageSlider"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="170dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Tìm kiếm"
+                    android:minHeight="48dp" />
+
+                <Button
+                    android:id="@+id/searchButton"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_baseline_search_24"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAccountList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
 
         </LinearLayout>
 
@@ -43,9 +66,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_dasbroad_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
-
-
-

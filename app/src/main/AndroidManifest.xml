@@ -14,7 +14,7 @@
         android:theme="@style/Theme.NVGShop"
         tools:replace="android:label">
         <activity
-            android:name=".AccountActivity"
+            android:name=".admin.AccountManagerActivity"
             android:exported="true" />
         <activity
             android:name=".admin.ProductManagerActivity"
@@ -23,13 +23,16 @@
             android:name=".admin.DashbroadActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".portal.AccountActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".portal.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".portal.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".portal.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

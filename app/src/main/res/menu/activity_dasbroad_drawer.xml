@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_greeting"
-        android:title="Xin chào: Admin"
+        android:id="@+id/nav_user"
+        android:title="Quản lý tài khoản"
         android:icon="@drawable/ic_user"/>
     <!-- Các MenuItem khác -->
     <item

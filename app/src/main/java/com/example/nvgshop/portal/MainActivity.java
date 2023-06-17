@@ -1,9 +1,10 @@
-package com.example.nvgshop;
+package com.example.nvgshop.portal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
+import com.example.nvgshop.R;
 import com.example.nvgshop.models.SliderItem;
 import com.google.android.material.navigation.NavigationView;
 

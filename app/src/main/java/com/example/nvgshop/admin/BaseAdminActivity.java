@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.MenuItem;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.nvgshop.LoginActivity;
+import com.example.nvgshop.portal.LoginActivity;
 import com.example.nvgshop.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,6 +26,10 @@ public class BaseAdminActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 // Xử lý sự kiện khi chọn mục trong NavigationView
                 switch (menuItem.getItemId()) {
+                    case R.id.nav_user:
+                        Intent accountIntent = new Intent(activity, AccountManagerActivity.class);
+                        activity.startActivity(accountIntent);
+                        break;
                     case R.id.nav_product:
                         Intent productIntent = new Intent(activity, ProductManagerActivity.class);
                         activity.startActivity(productIntent);
