@@ -43,7 +43,8 @@ public class ProductManagerActivity extends AppCompatActivity {
         buttonSaveProduct = findViewById(R.id.buttonSaveProduct);
         buttonOpenSave = findViewById(R.id.buttonOpenSave);
         recyclerViewProductList = findViewById(R.id.recyclerViewProductList);
-
+        EditText searchEditText = findViewById(R.id.searchEditText);
+        Button searchButton = findViewById(R.id.searchButton);
         productList = new ArrayList<>();
         productAdapter = new ProductAdapter(productList);
         recyclerViewProductList.setAdapter(productAdapter);
@@ -59,6 +60,16 @@ public class ProductManagerActivity extends AppCompatActivity {
                 showDeleteConfirmationDialog(product);
             }
         });
+        //tìm kiếm
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String query = searchEditText.getText().toString();
+                performSearch(query);
+            }
+        });
+
+
         buttonOpenSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +128,20 @@ public class ProductManagerActivity extends AppCompatActivity {
         });
 
     }
+    // truyền query tìm kiếm
+    private void performSearch(String query) {
+        List<Product> filteredList = new ArrayList<>();
+
+        for (Product product : productList) {
+            //trong product models có getname
+            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+
+        productAdapter.setData(filteredList);
+    }
+
 
     private void showDeleteConfirmationDialog(final Product product) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -70,6 +70,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
         }
     }
+ // phục vụ tìm kiếm
+    public void setData(List<Product> productList) {
+        this.productList = productList;
+        notifyDataSetChanged();
+    }
+
 
     public interface OnDeleteClickListener {
         void onDeleteClick(int position);

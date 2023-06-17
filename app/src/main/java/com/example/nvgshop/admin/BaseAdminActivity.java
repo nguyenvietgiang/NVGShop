@@ -3,6 +3,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.MenuItem;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.nvgshop.LoginActivity;
 import com.example.nvgshop.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,7 +37,8 @@ public class BaseAdminActivity {
                         Snackbar.make(drawerLayout, "Kiểm tra phản hồi", Snackbar.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_logout:
-
+                        Intent loginIntent = new Intent(activity, LoginActivity.class);
+                        activity.startActivity(loginIntent);
                         break;
                 }
                 // Đóng NavigationView sau khi chọn mục

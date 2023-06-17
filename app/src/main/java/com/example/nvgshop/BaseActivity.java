@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.nvgshop.admin.ProductManagerActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,8 +33,13 @@ public class BaseActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 // Xử lý sự kiện khi chọn mục trong NavigationView
                 switch (menuItem.getItemId()) {
+                    case R.id.nav_greeting:
+                        Intent greetingIntent = new Intent(activity, AccountActivity.class);
+                        activity.startActivity(greetingIntent);
+                        break;
                     case R.id.nav_home:
-                        Snackbar.make(drawerLayout, "Home được chọn", Snackbar.LENGTH_SHORT).show();
+                        Intent homeIntent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(homeIntent);
                         break;
                     case R.id.nav_card:
                         Snackbar.make(drawerLayout, "Card được chọn", Snackbar.LENGTH_SHORT).show();
@@ -85,6 +92,7 @@ public class BaseActivity {
         builder.setNegativeButton("Không", null);
         builder.create().show();
     }
+
 }
 
 
