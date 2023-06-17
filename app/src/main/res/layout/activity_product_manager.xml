@@ -21,47 +21,61 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="5dp"
                 android:background="@color/design_default_color_error"
                 android:elevation="2dp"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-            <!-- Add EditText for product name -->
             <EditText
                 android:id="@+id/editTextProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tên sản phẩm"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:visibility="gone" />
 
-            <!-- Add EditText for product price -->
             <EditText
                 android:id="@+id/editTextProductPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Giá sản phẩm"
                 android:padding="16dp"
-                android:layout_below="@+id/editTextProductName" />
+                android:layout_below="@+id/editTextProductName"
+                android:visibility="gone" />
 
-            <!-- Add EditText for product description -->
             <EditText
                 android:id="@+id/editTextProductDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mô tả sản phẩm"
                 android:padding="16dp"
-                android:layout_below="@+id/editTextProductPrice" />
-
-            <!-- Add Button to save product -->
-            <Button
-                android:id="@+id/buttonSaveProduct"
-                android:layout_width="wrap_content"
+                android:layout_below="@+id/editTextProductPrice"
+                android:visibility="gone" />
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thêm"
-                android:layout_below="@+id/editTextProductDescription" />
+                android:layout_below="@+id/editTextProductDescription"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/buttonSaveProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lưu Sản Phẩm"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <!-- Add RecyclerView for product list -->
+            <Button
+                android:id="@+id/buttonOpenSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextProductDescription"
+                android:text="Quản Lý Sản Phẩm"
+                app:backgroundTint="#4CAF50" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewProductList"
                 android:layout_width="match_parent"

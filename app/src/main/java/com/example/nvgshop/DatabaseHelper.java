@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.nvgshop.models.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,4 +118,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return productList;
     }
+
+    public void deleteProduct(int productId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PRODUCT, COLUMN_PRODUCT_ID + " = ?", new String[]{String.valueOf(productId)});
+        db.close();
+    }
+
 }

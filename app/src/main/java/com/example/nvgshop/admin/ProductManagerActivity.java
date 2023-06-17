@@ -1,16 +1,19 @@
 package com.example.nvgshop.admin;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.nvgshop.DatabaseHelper;
-import com.example.nvgshop.Product;
+import com.example.nvgshop.models.Product;
 import com.example.nvgshop.R;
 
 import java.util.ArrayList;
@@ -22,8 +25,9 @@ public class ProductManagerActivity extends AppCompatActivity {
     private EditText editTextProductPrice;
     private EditText editTextProductDescription;
     private Button buttonSaveProduct;
+    private Button buttonOpenSave;
     private RecyclerView recyclerViewProductList;
-
+    private boolean isAddMode = false;
     private List<Product> productList;
     private ProductAdapter productAdapter;
     private DatabaseHelper databaseHelper;
@@ -37,6 +41,7 @@ public class ProductManagerActivity extends AppCompatActivity {
         editTextProductPrice = findViewById(R.id.editTextProductPrice);
         editTextProductDescription = findViewById(R.id.editTextProductDescription);
         buttonSaveProduct = findViewById(R.id.buttonSaveProduct);
+        buttonOpenSave = findViewById(R.id.buttonOpenSave);
         recyclerViewProductList = findViewById(R.id.recyclerViewProductList);
 
         productList = new ArrayList<>();
@@ -47,24 +52,90 @@ public class ProductManagerActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         // Lấy danh sách sản phẩm từ database và cập nhật RecyclerView
         productList.addAll(databaseHelper.getAllProducts());
-        productAdapter.notifyDataSetChanged();
+        productAdapter.setOnDeleteClickListener(new ProductAdapter.OnDeleteClickListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                Product product = productList.get(position);
+                showDeleteConfirmationDialog(product);
+            }
+        });
+        buttonOpenSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isAddMode = !isAddMode; // Đảo ngược trạng thái
+                if (isAddMode) {
+                    buttonSaveProduct.setVisibility(View.VISIBLE);
+                    editTextProductName.setVisibility(View.VISIBLE);
+                    editTextProductPrice.setVisibility(View.VISIBLE);
+                    editTextProductDescription.setVisibility(View.VISIBLE);
+                } else {
+                    buttonSaveProduct.setVisibility(View.GONE);
+                    editTextProductName.setVisibility(View.GONE);
+                    editTextProductPrice.setVisibility(View.GONE);
+                    editTextProductDescription.setVisibility(View.GONE);
+                }
+            }
+        });
         buttonSaveProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String name = editTextProductName.getText().toString();
                 String description = editTextProductDescription.getText().toString();
-                double price = Double.parseDouble(editTextProductPrice.getText().toString());
+                String priceString = editTextProductPrice.getText().toString();
 
+                // Kiểm tra các trường không được để trống
+                if (name.isEmpty() || description.isEmpty() || priceString.isEmpty()) {
+                    Toast.makeText(ProductManagerActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Kiểm tra giá phải là số
+                double price;
+                try {
+                    price = Double.parseDouble(priceString);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(ProductManagerActivity.this, "Giá sản phẩm phải là số", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Thực hiện lưu sản phẩm vào database
                 databaseHelper.addProduct(name, description, price);
 
+                // Cập nhật danh sách sản phẩm và RecyclerView
                 productList.clear();
                 productList.addAll(databaseHelper.getAllProducts());
                 productAdapter.notifyDataSetChanged();
 
+                // Đặt lại giá trị trống cho các ô input
                 editTextProductName.setText("");
                 editTextProductDescription.setText("");
                 editTextProductPrice.setText("");
+
+                // Hiển thị thông báo thành công
+                Toast.makeText(ProductManagerActivity.this, "Lưu sản phẩm thành công", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    private void showDeleteConfirmationDialog(final Product product) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Xác nhận")
+                .setMessage("Bạn muốn xóa sản phẩm này chứ?")
+                .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteProduct(product);
+                    }
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
+    }
+
+    private void deleteProduct(Product product) {
+        databaseHelper.deleteProduct(product.getId());
+        productList.remove(product);
+        productAdapter.notifyDataSetChanged();
+        Toast.makeText(ProductManagerActivity.this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show();
     }
 }
