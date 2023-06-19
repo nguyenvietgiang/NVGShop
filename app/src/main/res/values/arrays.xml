@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="feedback_ratings">
+        <item>Tốt</item>
+        <item>Bình thường</item>
+        <item>Không tốt</item>
+    </string-array>
+
+    <string name="select_rating_prompt">Chọn trạng thái đánh giá</string>
+</resources>

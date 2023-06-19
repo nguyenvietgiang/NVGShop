@@ -32,6 +32,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PRODUCT_DESCRIPTION = "Description";
     private static final String COLUMN_PRODUCT_PRICE = "Price";
 
+    private static final String TABLE_FEEDBACK = "Feedback";
+    private static final String COLUMN_FEEDBACK_ID = "Id";
+    private static final String COLUMN_FEEDBACK_NAME = "Name";
+    private static final String COLUMN_FEEDBACK_STATUS = "Status";
+    private static final String COLUMN_FEEDBACK_CONTENT = "sFeedback";
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -55,12 +61,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ")";
 
         sqLiteDatabase.execSQL(createTableProductQuery);
+
+        String createTableFeedbackQuery = "CREATE TABLE " + TABLE_FEEDBACK + "("
+                + COLUMN_FEEDBACK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_FEEDBACK_NAME + " TEXT, "
+                + COLUMN_FEEDBACK_STATUS + " TEXT, "
+                + COLUMN_FEEDBACK_CONTENT + " TEXT"
+                + ")";
+
+        sqLiteDatabase.execSQL(createTableFeedbackQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNT);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_FEEDBACK);
         onCreate(sqLiteDatabase);
     }
 
@@ -179,6 +195,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteProduct(int productId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_PRODUCT, COLUMN_PRODUCT_ID + " = ?", new String[]{String.valueOf(productId)});
+        db.close();
+    }
+
+
+    public void addFeedback(String name, String status, String content) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FEEDBACK_NAME, name);
+        values.put(COLUMN_FEEDBACK_STATUS, status);
+        values.put(COLUMN_FEEDBACK_CONTENT, content);
+        db.insert(TABLE_FEEDBACK, null, values);
         db.close();
     }
 

@@ -22,7 +22,7 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        baseActivity = new BaseActivity(this); // Truyền vào tham số Activity hiện tại
+        baseActivity = new BaseActivity(this);
         baseActivity.setupNavigationView();
         baseActivity.setGreetingText();
 

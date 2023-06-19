@@ -40,8 +40,9 @@ public class BaseActivity {
                         Intent homeIntent = new Intent(activity, MainActivity.class);
                         activity.startActivity(homeIntent);
                         break;
-                    case R.id.nav_card:
-                        Snackbar.make(drawerLayout, "Card được chọn", Snackbar.LENGTH_SHORT).show();
+                    case R.id.nav_contact:
+                        Intent feedbackIntent = new Intent(activity, FeedbackActivity.class);
+                        activity.startActivity(feedbackIntent);
                         break;
                     case R.id.nav_product:
                         Snackbar.make(drawerLayout, "Sản phẩm được chọn", Snackbar.LENGTH_SHORT).show();
