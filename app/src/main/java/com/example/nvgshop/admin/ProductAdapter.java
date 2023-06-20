@@ -7,8 +7,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nvgshop.Fragment.EditProductFragment;
 import com.example.nvgshop.R;
 import com.example.nvgshop.models.Product;
 
@@ -16,8 +19,9 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
-    private List<Product> productList;
+    public List<Product> productList;
     private OnDeleteClickListener onDeleteClickListener;
+    private OnEditClickListener onEditClickListener;
 
     public ProductAdapter(List<Product> productList) {
         this.productList = productList;
@@ -25,6 +29,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     public void setOnDeleteClickListener(OnDeleteClickListener listener) {
         this.onDeleteClickListener = listener;
+    }
+
+    public void setOnEditClickListener(OnEditClickListener listener) {
+        this.onEditClickListener = listener;
     }
 
     @NonNull
@@ -49,6 +57,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 }
             }
         });
+
+        holder.buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onEditClickListener != null) {
+                    onEditClickListener.onEditClick(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -61,6 +78,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         public TextView textViewProductPrice;
         public TextView textViewProductDescription;
         public Button buttonDelete;
+        public Button buttonEdit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,16 +86,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             textViewProductPrice = itemView.findViewById(R.id.textViewProductPrice);
             textViewProductDescription = itemView.findViewById(R.id.textViewProductDescription);
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
+            buttonEdit = itemView.findViewById(R.id.buttonEdit);
         }
     }
- // phục vụ tìm kiếm
+
     public void setData(List<Product> productList) {
         this.productList = productList;
         notifyDataSetChanged();
     }
 
-
     public interface OnDeleteClickListener {
         void onDeleteClick(int position);
     }
+
+    public interface OnEditClickListener {
+        void onEditClick(int position);
+    }
 }
+

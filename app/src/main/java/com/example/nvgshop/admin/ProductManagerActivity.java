@@ -2,6 +2,8 @@ package com.example.nvgshop.admin;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.nvgshop.Data.DatabaseHelper;
+import com.example.nvgshop.Fragment.EditProductFragment;
 import com.example.nvgshop.models.Product;
 import com.example.nvgshop.R;
 import com.example.nvgshop.portal.BaseActivity;
@@ -65,6 +68,17 @@ public class ProductManagerActivity extends AppCompatActivity {
                 showDeleteConfirmationDialog(product);
             }
         });
+
+        productAdapter.setOnEditClickListener(new ProductAdapter.OnEditClickListener() {
+            @Override
+            public void onEditClick(int position) {
+                // lấy thon tin san pham
+                Product product = productList.get(position);
+                // Gọi phương thức để hiển thị thông tin sản phẩm trong EditProductFragment
+                showEditProductFragment(product);
+            }
+        });
+
         //tìm kiếm
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +161,6 @@ public class ProductManagerActivity extends AppCompatActivity {
         productAdapter.setData(filteredList);
     }
 
-
     private void showDeleteConfirmationDialog(final Product product) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Xác nhận")
@@ -167,5 +180,11 @@ public class ProductManagerActivity extends AppCompatActivity {
         productList.remove(product);
         productAdapter.notifyDataSetChanged();
         Toast.makeText(ProductManagerActivity.this, "Đã xóa sản phẩm", Toast.LENGTH_SHORT).show();
+    }
+     // hiển thị fragment
+    private void showEditProductFragment(Product product) {
+        EditProductFragment editProductFragment = EditProductFragment.newInstance(product.getId(), product.getName(), product.getDescription(), product.getPrice());
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        editProductFragment.show(fragmentManager, "edit_product_dialog");
     }
 }

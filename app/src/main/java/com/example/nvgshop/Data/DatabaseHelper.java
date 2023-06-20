@@ -168,6 +168,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_PRODUCT, null, values);
         db.close();
     }
+
+    public void updateProduct(int productId, String name, String description, double price) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PRODUCT_NAME, name);
+        values.put(COLUMN_PRODUCT_DESCRIPTION, description);
+        values.put(COLUMN_PRODUCT_PRICE, price);
+        db.update(TABLE_PRODUCT, values, COLUMN_PRODUCT_ID + " = ?", new String[]{String.valueOf(productId)});
+        db.close();
+    }
+
+
     public List<Product> getAllProducts() {
 
         List<Product> productList = new ArrayList<>();

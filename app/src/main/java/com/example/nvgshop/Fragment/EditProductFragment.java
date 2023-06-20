@@ -1,66 +1,99 @@
 package com.example.nvgshop.Fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+
+import com.example.nvgshop.Data.DatabaseHelper;
 import com.example.nvgshop.R;
+import com.example.nvgshop.admin.ProductAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditProductFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class EditProductFragment extends Fragment {
+public class EditProductFragment extends DialogFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PRODUCT_ID = "arg_product_id";
+    private static final String ARG_PRODUCT_NAME = "arg_product_name";
+    private static final String ARG_PRODUCT_DESCRIPTION = "arg_product_description";
+    private static final String ARG_PRODUCT_PRICE = "arg_product_price";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int productId;
+    private String productName;
+    private String productDescription;
+    private ProductAdapter productAdapter;
+    private EditText editTextProductName;
+    private EditText editTextProductDescription;
 
     public EditProductFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditProductFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditProductFragment newInstance(String param1, String param2) {
+    public static EditProductFragment newInstance(int productId, String productName, String productDescription, double productPrice) {
         EditProductFragment fragment = new EditProductFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PRODUCT_ID, productId);
+        args.putString(ARG_PRODUCT_NAME, productName);
+        args.putString(ARG_PRODUCT_DESCRIPTION, productDescription);
+        args.putDouble(ARG_PRODUCT_PRICE, productPrice);
         fragment.setArguments(args);
         return fragment;
     }
 
+    @NonNull
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            productId = getArguments().getInt(ARG_PRODUCT_ID);
+            productName = getArguments().getString(ARG_PRODUCT_NAME);
+            productDescription = getArguments().getString(ARG_PRODUCT_DESCRIPTION);
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_product, container, false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_edit_product, null);
+
+        editTextProductName = view.findViewById(R.id.editTextProductName);
+        editTextProductDescription = view.findViewById(R.id.editTextProductDescription);
+
+        editTextProductName.setText(productName);
+        editTextProductDescription.setText(productDescription);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Chỉnh sửa sản phẩm")
+                .setView(view)
+                .setPositiveButton("Lưu", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newProductName = editTextProductName.getText().toString();
+                        String newProductDescription = editTextProductDescription.getText().toString();
+
+                        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+                        double productPrice = 0.0;
+                        databaseHelper.updateProduct(productId, newProductName, newProductDescription, productPrice);
+                        if (productAdapter != null) {
+                            productAdapter.notifyDataSetChanged();
+                        }
+                        if (getTargetFragment() instanceof EditProductListener) {
+                            EditProductListener listener = (EditProductListener) getTargetFragment();
+                            listener.onProductEdited(productId, newProductName, newProductDescription);
+                        }
+                    }
+                })
+                .setNegativeButton("Hủy", null);
+
+        return builder.create();
+    }
+    public interface EditProductListener {
+        void onProductEdited(int productId, String productName, String productDescription);
     }
 }
+
+
+
+
+
+

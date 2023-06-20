@@ -38,7 +38,8 @@ public class BaseAdminActivity {
                         Snackbar.make(drawerLayout, "Quản lý đơn hàng", Snackbar.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_contact:
-                        Snackbar.make(drawerLayout, "Kiểm tra phản hồi", Snackbar.LENGTH_SHORT).show();
+                        Intent dashbroadIntent = new Intent(activity, DashbroadActivity.class);
+                        activity.startActivity(dashbroadIntent);
                         break;
                     case R.id.nav_logout:
                         Intent loginIntent = new Intent(activity, LoginActivity.class);
