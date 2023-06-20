@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.nvgshop.models.Account;
+import com.example.nvgshop.models.Feedback;
 import com.example.nvgshop.models.Product;
 
 import java.util.ArrayList;
@@ -207,6 +208,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_FEEDBACK_CONTENT, content);
         db.insert(TABLE_FEEDBACK, null, values);
         db.close();
+    }
+
+    public List<Feedback> getAllFeedback() {
+        List<Feedback> feedbackList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FEEDBACK, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int feedbackId = cursor.getInt(cursor.getColumnIndex(COLUMN_FEEDBACK_ID));
+                String name = cursor.getString(cursor.getColumnIndex(COLUMN_FEEDBACK_NAME));
+                String status = cursor.getString(cursor.getColumnIndex(COLUMN_FEEDBACK_STATUS));
+                String content = cursor.getString(cursor.getColumnIndex(COLUMN_FEEDBACK_CONTENT));
+
+                Feedback feedback = new Feedback(feedbackId, name, status, content);
+                feedbackList.add(feedback);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return feedbackList;
     }
 
 }

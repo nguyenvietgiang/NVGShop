@@ -33,6 +33,12 @@
                 android:text="Hello World!"
                 android:layout_gravity="center_horizontal" />
 
+
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/pieChartView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
