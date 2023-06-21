@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -117,17 +118,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
    // kiểm tra tài khoản trong csdl
-    public boolean checkLogin(String userName, String password) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_USERNAME};
-        String selection = COLUMN_USERNAME + " = ?" + " AND " + COLUMN_PASSWORD + " = ?";
-        String[] selectionArgs = {userName, password};
-        Cursor cursor = db.query(TABLE_ACCOUNT, columns, selection, selectionArgs, null, null, null);
-        int count = cursor.getCount();
-        cursor.close();
-        db.close();
-        return count > 0;
-    }
+   public boolean checkLogin(String userName, String password) {
+       SQLiteDatabase db = this.getReadableDatabase();
+       String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+       String[] selectionArgs = { userName, password };
+       Cursor cursor = db.query(TABLE_ACCOUNT, null, selection, selectionArgs, null, null, null);
+       boolean isLoginValid = cursor != null && cursor.getCount() > 0;
+       cursor.close();
+       return isLoginValid;
+   }
+
     //kiểm tra validate tên và email
     public boolean checkAccountExists(String userName, String userEmail) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -157,6 +157,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return email;
+    }
+    public boolean changePassword(String userName, String oldPassword, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PASSWORD, newPassword);
+        String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+        String[] selectionArgs = { userName, oldPassword };
+        int rowsAffected = db.update(TABLE_ACCOUNT, values, selection, selectionArgs);
+        return rowsAffected > 0;
     }
 
     public void addProduct(String name, String description, double price) {
