@@ -38,8 +38,73 @@
             <lecho.lib.hellocharts.view.PieChartView
                 android:id="@+id/pieChartView"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="200dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvFeedbackCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Số lượng User: "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvProductCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Số sản phẩm: "
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAccountCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Số lượng phản hồi: "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvCartCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Số Đơn Hàng: 0 "
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thống kê sản phẩm!"
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <lecho.lib.hellocharts.view.ColumnChartView
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thống kê Hóa đơn!"
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

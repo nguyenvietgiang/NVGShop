@@ -31,9 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Phản hồi"
+                android:text="Trải nghiệm của bạn về dịch vụ"
                 android:textSize="24sp"
                 android:gravity="center" />
+
 
             <Spinner
                 android:id="@+id/feedback_rating_spinner"

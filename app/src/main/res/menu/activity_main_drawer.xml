@@ -10,11 +10,6 @@
         android:id="@+id/nav_home"
         android:title="Trang chủ"
         android:icon="@drawable/ic_home"/>
-
-    <item
-        android:id="@+id/nav_product"
-        android:title="Sản Phẩm"
-    android:icon="@drawable/ic_product"/>
     <item
         android:id="@+id/nav_card"
         android:title="Xem Giỏ Hàng"

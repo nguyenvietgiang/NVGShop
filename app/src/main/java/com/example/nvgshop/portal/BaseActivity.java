@@ -44,7 +44,7 @@ public class BaseActivity {
                         Intent feedbackIntent = new Intent(activity, FeedbackActivity.class);
                         activity.startActivity(feedbackIntent);
                         break;
-                    case R.id.nav_product:
+                    case R.id.nav_card:
                         Snackbar.make(drawerLayout, "Sản phẩm được chọn", Snackbar.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_logout:
