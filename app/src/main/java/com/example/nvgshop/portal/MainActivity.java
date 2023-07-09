@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewProductList);
         List<Product> productList = databaseHelper.getAllProducts();
-        ProductPortalAdapter adapter = new ProductPortalAdapter(productList);
+        ProductPortalAdapter adapter = new ProductPortalAdapter(this, productList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

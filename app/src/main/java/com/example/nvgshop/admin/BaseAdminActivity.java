@@ -35,7 +35,8 @@ public class BaseAdminActivity {
                         activity.startActivity(productIntent);
                         break;
                     case R.id.nav_card:
-                        Snackbar.make(drawerLayout, "Quản lý đơn hàng", Snackbar.LENGTH_SHORT).show();
+                        Intent orderIntent = new Intent(activity, OrderManagerActivity.class);
+                        activity.startActivity(orderIntent);
                         break;
                     case R.id.nav_contact:
                         Intent dashbroadIntent = new Intent(activity, DashbroadActivity.class);

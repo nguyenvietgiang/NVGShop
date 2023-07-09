@@ -33,7 +33,7 @@
                 android:text="Product Name" />
 
             <Button
-                android:id="@+id/buttonDelete"
+                android:id="@+id/buttonAddToCart"
                 android:layout_width="35dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"

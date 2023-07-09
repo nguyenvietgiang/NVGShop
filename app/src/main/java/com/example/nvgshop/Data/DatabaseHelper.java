@@ -41,6 +41,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_FEEDBACK_STATUS = "Status";
     private static final String COLUMN_FEEDBACK_CONTENT = "sFeedback";
 
+    private static final String TABLE_ORDER = "Orders";
+    private static final String COLUMN_ORDER_ID = "OrderId";
+    private static final String COLUMN_ORDER_DETAIL = "OrderDetail";
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -66,14 +70,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(createTableProductQuery);
 
+        String createTableOrderQuery = "CREATE TABLE " + TABLE_ORDER + "("
+                + COLUMN_ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_ORDER_DETAIL + " TEXT"
+                + ")";
+        sqLiteDatabase.execSQL(createTableOrderQuery);
+
         String createTableFeedbackQuery = "CREATE TABLE " + TABLE_FEEDBACK + "("
                 + COLUMN_FEEDBACK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_FEEDBACK_NAME + " TEXT, "
                 + COLUMN_FEEDBACK_STATUS + " TEXT, "
                 + COLUMN_FEEDBACK_CONTENT + " TEXT"
                 + ")";
-
         sqLiteDatabase.execSQL(createTableFeedbackQuery);
+
     }
 
     @Override
@@ -81,6 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNT);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_FEEDBACK);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDER);
         onCreate(sqLiteDatabase);
     }
 
@@ -260,4 +271,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return feedbackList;
     }
 
+    public void addOrder(String orderDetail) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ORDER_DETAIL, orderDetail);
+        db.insert(TABLE_ORDER, null, values);
+        db.close();
+    }
+
+    public List<String> getAllOrders() {
+        List<String> orderList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ORDER, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String orderDetail = cursor.getString(cursor.getColumnIndex(COLUMN_ORDER_DETAIL));
+                orderList.add(orderDetail);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return orderList;
+    }
 }

@@ -26,7 +26,7 @@ public class AccountManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_manager);
         recyclerViewAccountList = findViewById(R.id.recyclerViewAccountList);
-        baseActivity = new BaseAdminActivity(this); // Truyền vào tham số Activity hiện tại
+        baseActivity = new BaseAdminActivity(this);
         baseActivity.setupNavigationView();
 
         accountsList = new ArrayList<>();

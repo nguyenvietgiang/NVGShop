@@ -14,6 +14,12 @@
         android:theme="@style/Theme.NVGShop"
         tools:replace="android:label">
         <activity
+            android:name=".admin.OrderManagerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".portal.CartActivity"
+            android:exported="true" />
+        <activity
             android:name=".portal.FeedbackActivity"
             android:exported="true" />
         <activity

@@ -45,7 +45,8 @@ public class BaseActivity {
                         activity.startActivity(feedbackIntent);
                         break;
                     case R.id.nav_card:
-                        Snackbar.make(drawerLayout, "Sản phẩm được chọn", Snackbar.LENGTH_SHORT).show();
+                        Intent cartIntent = new Intent(activity, CartActivity.class);
+                        activity.startActivity(cartIntent);
                         break;
                     case R.id.nav_logout:
                         // Hiển thị hộp thoại xác nhận đăng xuất
