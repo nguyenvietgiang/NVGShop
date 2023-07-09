@@ -7,4 +7,9 @@
     </string-array>
 
     <string name="select_rating_prompt">Chọn trạng thái đánh giá</string>
+    <string-array name="product_types">
+        <item>Shirt</item>
+        <item>Toy</item>
+        <item>Book</item>
+    </string-array>
 </resources>

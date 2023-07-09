@@ -1,20 +1,26 @@
 package com.example.nvgshop.portal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.nvgshop.Data.DatabaseHelper;
 import com.example.nvgshop.R;
+import com.example.nvgshop.models.Product;
 import com.example.nvgshop.models.SliderItem;
 import com.google.android.material.navigation.NavigationView;
 
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private BaseActivity baseActivity;
     private SliderView imageSlider;
-
+    private DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         imageSlider = findViewById(R.id.imageSlider);
         setupImageSlider();
+        databaseHelper = new DatabaseHelper(this);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewProductList);
+        List<Product> productList = databaseHelper.getAllProducts();
+        ProductPortalAdapter adapter = new ProductPortalAdapter(productList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     private void setupImageSlider() {

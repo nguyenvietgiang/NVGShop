@@ -39,19 +39,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/ic_delete"
-                app:backgroundTint="#DD2222"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <Button
-                android:id="@+id/buttonEdit"
-                android:layout_width="35dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/ic_update"
-                app:backgroundTint="#FFEB3B"
+                android:background="@drawable/ic_add_cart"
+                app:backgroundTint="#0CEF04"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         </LinearLayout>
@@ -69,16 +58,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:textAppearanceMedium"
             android:text="Product Description" />
-        <TextView
-            android:id="@+id/textViewProductType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:text="Product Type" />
 
 
     </LinearLayout>
 </LinearLayout>
-
-
-

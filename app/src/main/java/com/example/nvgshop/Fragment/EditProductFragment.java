@@ -73,7 +73,8 @@ public class EditProductFragment extends DialogFragment {
 
                         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
                         double productPrice = 0.0;
-                        databaseHelper.updateProduct(productId, newProductName, newProductDescription, productPrice);
+                        String type = "Type2";
+                        databaseHelper.updateProduct(productId, newProductName, newProductDescription, productPrice,type);
                         if (productAdapter != null) {
                             productAdapter.notifyDataSetChanged();
                         }

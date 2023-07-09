@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.textViewProductName.setText(product.getName());
         holder.textViewProductPrice.setText(String.valueOf(product.getPrice()));
         holder.textViewProductDescription.setText(product.getDescription());
+        holder.textViewProductType.setText(product.getType());
+
+        // Hiển thị ảnh tương ứng với loại sản phẩm
+        int imageResId = getImageResIdByProductType(product.getType());
+        holder.imageViewProduct.setImageResource(imageResId);
+
         holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +75,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         });
     }
 
+
     @Override
     public int getItemCount() {
         return productList.size();
@@ -77,16 +85,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         public TextView textViewProductName;
         public TextView textViewProductPrice;
         public TextView textViewProductDescription;
+        public TextView textViewProductType;
         public Button buttonDelete;
         public Button buttonEdit;
+        public ImageView imageViewProduct;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewProductName = itemView.findViewById(R.id.textViewProductName);
             textViewProductPrice = itemView.findViewById(R.id.textViewProductPrice);
             textViewProductDescription = itemView.findViewById(R.id.textViewProductDescription);
+            textViewProductType = itemView.findViewById(R.id.textViewProductType);
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
             buttonEdit = itemView.findViewById(R.id.buttonEdit);
+            imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
         }
     }
 
@@ -101,6 +113,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     public interface OnEditClickListener {
         void onEditClick(int position);
+    }
+
+    private int getImageResIdByProductType(String productType) {
+        switch (productType) {
+            case "Shirt":
+                return R.drawable.ao;
+            case "Toy":
+                return R.drawable.toy;
+            case "Book":
+                return R.drawable.images;
+            default:
+                return R.drawable.hoaqua;
+        }
     }
 }
 

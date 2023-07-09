@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.nvgshop.Data.DatabaseHelper;
@@ -36,6 +37,7 @@ public class ProductManagerActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private DatabaseHelper databaseHelper;
     private BaseAdminActivity baseActivity;
+    private Spinner spinnerProductType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class ProductManagerActivity extends AppCompatActivity {
         editTextProductDescription = findViewById(R.id.editTextProductDescription);
         buttonSaveProduct = findViewById(R.id.buttonSaveProduct);
         buttonOpenSave = findViewById(R.id.buttonOpenSave);
+        spinnerProductType= findViewById(R.id.spinnerProductType);
         recyclerViewProductList = findViewById(R.id.recyclerViewProductList);
         EditText searchEditText = findViewById(R.id.searchEditText);
         Button searchButton = findViewById(R.id.searchButton);
@@ -57,6 +60,11 @@ public class ProductManagerActivity extends AppCompatActivity {
 
         baseActivity = new BaseAdminActivity(this); // Truyền vào tham số Activity hiện tại
         baseActivity.setupNavigationView();
+
+        productList = new ArrayList<>();
+        productAdapter = new ProductAdapter(productList);
+        recyclerViewProductList.setAdapter(productAdapter);
+        recyclerViewProductList.setLayoutManager(new LinearLayoutManager(this));
 
         databaseHelper = new DatabaseHelper(this);
         // Lấy danh sách sản phẩm từ database và cập nhật RecyclerView
@@ -98,11 +106,13 @@ public class ProductManagerActivity extends AppCompatActivity {
                     editTextProductName.setVisibility(View.VISIBLE);
                     editTextProductPrice.setVisibility(View.VISIBLE);
                     editTextProductDescription.setVisibility(View.VISIBLE);
+                    spinnerProductType.setVisibility(View.VISIBLE);
                 } else {
                     buttonSaveProduct.setVisibility(View.GONE);
                     editTextProductName.setVisibility(View.GONE);
                     editTextProductPrice.setVisibility(View.GONE);
                     editTextProductDescription.setVisibility(View.GONE);
+                    spinnerProductType.setVisibility(View.GONE);
                 }
             }
         });
@@ -112,6 +122,7 @@ public class ProductManagerActivity extends AppCompatActivity {
                 String name = editTextProductName.getText().toString();
                 String description = editTextProductDescription.getText().toString();
                 String priceString = editTextProductPrice.getText().toString();
+                String type = spinnerProductType.getSelectedItem().toString();
 
                 // Kiểm tra các trường không được để trống
                 if (name.isEmpty() || description.isEmpty() || priceString.isEmpty()) {
@@ -129,7 +140,7 @@ public class ProductManagerActivity extends AppCompatActivity {
                 }
 
                 // Thực hiện lưu sản phẩm vào database
-                databaseHelper.addProduct(name, description, price);
+                databaseHelper.addProduct(name, description, price, type);
 
                 // Cập nhật danh sách sản phẩm và RecyclerView
                 productList.clear();
